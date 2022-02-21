@@ -3,6 +3,8 @@ package com.example.demo.mapper;
 import com.example.demo.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.Mapping;
 
@@ -11,4 +13,7 @@ import org.springframework.web.bind.annotation.Mapping;
 public interface UserMapper {
     @Insert("insert into user (name,token,account_id,gmt_create,gmt_modified) values (#{name},#{token},#{accountId},#{gmtCreate},#{gmtModified})")
     public void insert(User user);
+
+    @Select("select * from user where token=#{token}")
+    User findByToken(@Param("token") String token);
 }
