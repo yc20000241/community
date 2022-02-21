@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-public class GithubUser {
+public class GiteeUser {
     String name;
     Long id;
     String bio;
