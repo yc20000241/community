@@ -54,7 +54,7 @@ public class AuthorizeController {
         GiteeUser giteeUser = giteeProvider.getUser(access_token);
 //        System.out.println(giteeUser);
 
-        if(giteeUser != null) {
+        if(giteeUser != null && giteeUser.getId() != null) {
             User user = new User();
             String token = UUID.randomUUID().toString();
             user.setToken(token);
@@ -62,7 +62,9 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(giteeUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(giteeUser.getAvatar_url());
             userMapper.insert(user);
+            System.out.println(user);
             response.addCookie(new Cookie("token", token));
 
             return "redirect:/";

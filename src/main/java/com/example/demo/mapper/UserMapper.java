@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.Mapping;
 @Mapper
 @Component
 public interface UserMapper {
-    @Insert("insert into user (name,token,account_id,gmt_create,gmt_modified) values (#{name},#{token},#{accountId},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into user (name,token,account_id,gmt_create,gmt_modified,avatar_url) values (#{name},#{token},#{accountId},#{gmtCreate},#{gmtModified},#{avatarUrl})")
     public void insert(User user);
 
     @Select("select * from user where token=#{token}")

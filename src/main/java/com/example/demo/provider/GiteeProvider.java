@@ -58,7 +58,9 @@ public class GiteeProvider {
         try {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
+            System.out.println(string);
             GiteeUser giteeUser = JSON.parseObject(string, GiteeUser.class);
+            System.out.println(giteeUser);
             return giteeUser;
         } catch (Exception e) {
             e.printStackTrace();
