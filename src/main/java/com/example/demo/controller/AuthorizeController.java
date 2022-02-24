@@ -2,11 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AccessTokenDTO;
 import com.example.demo.dto.GiteeUser;
-import com.example.demo.dto.GithubUser;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
 import com.example.demo.provider.GiteeProvider;
-import com.example.demo.provider.GithubProvider;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +19,6 @@ import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
-//    @Autowired
-//    private GithubProvider githubProvider;
 
     @Autowired
     private GiteeProvider giteeProvider;
