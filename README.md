@@ -1,1 +1,1 @@
-##yc001
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
