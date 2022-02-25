@@ -2,6 +2,7 @@ package com.example.demo.exception;
 
 public class CustomizeException extends RuntimeException {
     private String message;
+    private Integer code;
 
     @Override
     public String getMessage() {
@@ -9,6 +10,11 @@ public class CustomizeException extends RuntimeException {
     }
 
     public CustomizeException(ICustomizeErrorCode errorCode) {
+        this.code = errorCode.getCode();
         this.message = errorCode.getMessage();
+    }
+
+    public Integer getCode() {
+        return code;
     }
 }

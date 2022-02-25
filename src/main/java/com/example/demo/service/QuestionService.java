@@ -66,7 +66,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO list(Integer userId, Integer page, Integer size) {
+    public PaginationDTO list(Long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
 //        Integer totalCount = questionMapper.countByUserId(userId);
 
@@ -107,7 +107,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if(question == null)
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -118,10 +118,13 @@ public class QuestionService {
         return questionDTO;
     }
 
-    public void createOrUpdate(Question question, Integer id) {
+    public void createOrUpdate(Question question, Long id) {
         if(id == 0){
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
             questionMapper.insert(question);
         }else{
             Question updateQuestion = new Question();
@@ -139,7 +142,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);
