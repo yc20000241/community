@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.NotificationDTO;
 import com.example.demo.dto.PaginationDTO;
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.model.Notification;
 import com.example.demo.model.User;
+import com.example.demo.service.NotificationService;
 import com.example.demo.service.QuestionService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ProfileController {
 
-//    @Autowired
-//    private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     private QuestionService questionService;
@@ -29,21 +32,7 @@ public class ProfileController {
                           @PathVariable(name = "action") String action,
                           Model model,
                           @RequestParam(name = "page", defaultValue = "1") Integer page,
-                          @RequestParam(name = "size", defaultValue = "2") Integer size){
-//        User user = null;
-//        Cookie[] cookies = request.getCookies();
-//        if(cookies != null && cookies.length != 0) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("token")) {
-//                    String token = cookie.getValue();
-//                    user = userMapper.findByToken(token);
-//                    if (user != null) {
-//                        request.getSession().setAttribute("user", user);
-//                    }
-//                    break;
-//                }
-//            }
-//        }
+                          @RequestParam(name = "size", defaultValue = "5") Integer size){
         User user = (User) request.getSession().getAttribute("user");
 
         if(user == null){
@@ -53,13 +42,18 @@ public class ProfileController {
         if("questions".equals(action)){
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的提问");
+            PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
+            model.addAttribute("pagination",paginationDTO);
         }else if("replies".equals(action)){
+            PaginationDTO paginationDTO = notificationService.list(user.getId(), page, size);
+            Long unreadCount = notificationService.unreadCount(user.getId());
             model.addAttribute("section", "replies");
+            model.addAttribute("pagination",paginationDTO);
             model.addAttribute("sectionName", "最新回复");
+            model.addAttribute("unreadCount", unreadCount);
         }
 
-        PaginationDTO paginationDTO = questionService.list(user.getId(), page, size);
-        model.addAttribute("pagination",paginationDTO);
+
         return "profile";
     }
 }
