@@ -102,9 +102,30 @@ function collapseComments(e) {
             e.setAttribute("data-collapse", "in");
             e.classList.add("active");
         }
+    }
+}
+
+function selectTag(e) {
+    var value = e.getAttribute("data-tag");
+    var tag = $("#tag");
+    // console.log(tag);
+    // debugger
+    var previous = tag.val();
 
 
 
-
+    if(previous.indexOf(value) == -1){
+        console.log(previous.indexOf(value));
+        if(previous){
+            tag.val(previous + ',' + value);
+        }else{
+            tag.val(value);
         }
+    }
+    console.log(tag.val())
+
+}
+
+function showSelectTag() {
+    $("#select-tag").show();
 }
