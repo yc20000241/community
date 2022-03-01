@@ -25,7 +25,7 @@
                         <li th:if="${session.user != null}">
                             <a href="/publish">提问</a>
                         </li>
-                        <li><a href="/profile/replies">通知<span class="badge">42</span></a></li>
+                        <li><a href="/profile/replies">通知<span class="badge" th:text="${session.unreadCount}"></span></a></li>
                         <li th:if="${session.user == null}">
                             <a href="https://gitee.com/oauth/authorize?client_id=5b417dbbc69834432bfce9bf77f88b6de554c52f28f5d4599efbb02a25ff1e24&redirect_uri=http://127.0.0.1:8080/callback&response_type=code">登录</a>
                         </li>
